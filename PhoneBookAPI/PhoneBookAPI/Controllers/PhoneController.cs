@@ -89,12 +89,10 @@ public class PhoneController(IServiceManager serviceManager) : ControllerBase
     /// <response code="200">Успешно удален телефон</response>
     /// <response code="400">Плохой запрос: неправильный ID</response>
     /// <response code="404">Телефон не найден</response>
-    /// <response code="409">Конфликт: телефон имеет привязку к номеру</response>
     [HttpDelete("delete/{id:int}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    [ProducesResponseType(409)]
     public Result Delete(int id)
     {
         return serviceManager.PhoneService.Delete(id);
