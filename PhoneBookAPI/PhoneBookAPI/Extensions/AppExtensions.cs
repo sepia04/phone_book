@@ -10,6 +10,7 @@ public static class AppExtensions
         app.Development();
         app.HttpsRedirection();
         app.Migrate();
+        app.Cors(); 
         app.Controllers();
 
         return app;
@@ -33,6 +34,11 @@ public static class AppExtensions
         using var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         db.Database.Migrate();
+    }
+
+    private static void Cors(this WebApplication app)
+    {
+        app.UseCors("Cors Policy");
     }
 
     private static void Controllers(this WebApplication app)
