@@ -19,7 +19,7 @@ public static class AppExtensions
     {
         if (!app.Environment.IsDevelopment()) return;
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(o => { o.SwaggerEndpoint("/swagger/v1/swagger.json", "API для телефонного справочника V1"); });
     }
 
     private static void HttpsRedirection(this WebApplication app)

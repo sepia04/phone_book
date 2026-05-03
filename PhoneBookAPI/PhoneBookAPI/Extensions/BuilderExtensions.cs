@@ -1,5 +1,7 @@
+using System.Reflection;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Persistence;
 using Persistence.Repositories;
 using Services;
@@ -23,7 +25,20 @@ public static class BuilderExtensions
     private static void RegisterSwaggerConfiguration(this WebApplicationBuilder builder)
     {
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(o =>
+        {
+            o.SwaggerDoc("v1",
+                new OpenApiInfo
+                {
+                    Title = "API для телефонного справочника",
+                    Version = "v1",
+                    Description = "API для работы с пользователями и телефонными номерами"
+                });
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            o.IncludeXmlComments(xmlPath);
+        });
     }
 
     private static void RegisterControllers(this WebApplicationBuilder builder)
@@ -51,5 +66,5 @@ public static class BuilderExtensions
     {
         builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
-    } 
+    }
 }

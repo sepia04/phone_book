@@ -13,9 +13,9 @@ internal sealed class PhoneService(IRepositoryManager repositoryManager) : IPhon
     {
         var phones = repositoryManager.PhoneRepository.GetAllPhones();
 
-        var phonesDto = phones.Adapt<Result<IEnumerable<PhoneDto>>>();
+        var phonesDto = phones.Adapt<IEnumerable<PhoneDto>>();
 
-        return phonesDto;
+        return Result.Success(phonesDto);
     }
 
     public Result<PhoneDto> GetPhone(int id)
@@ -48,10 +48,15 @@ internal sealed class PhoneService(IRepositoryManager repositoryManager) : IPhon
             return Result.Invalid(validationErrors);
         }
 
+        var user = repositoryManager.UserRepository.GetById(userId);
+
+        if (user is null) return Result.NotFound("User is not found");
+
         var newPhone = new Phone
         {
             PhoneNumber = phoneNumber,
-            UserId = userId
+            UserId = userId,
+            User = user
         };
 
         repositoryManager.PhoneRepository.Create(newPhone);
