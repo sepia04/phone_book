@@ -11,5 +11,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Phone>().HasIndex(ph => ph.PhoneNumber).IsUnique();
+        modelBuilder.Entity<Phone>().HasOne(ph => ph.User).WithMany(u => u.Phones).HasForeignKey(ph => ph.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

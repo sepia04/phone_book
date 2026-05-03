@@ -105,8 +105,6 @@ internal sealed class PhoneService(IRepositoryManager repositoryManager) : IPhon
 
         if (phone is null) return Result.NotFound("Phone is not found");
 
-        if (phone.UserId is not null) return Result.Conflict("Can't delete phone number. User has this phone number.");
-
         repositoryManager.PhoneRepository.Delete(phone);
 
         return Result.Success();

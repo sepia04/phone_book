@@ -11,4 +11,5 @@ public class User
     public required string Email { get; set; }
 
     public DateTime DateOfBirth { get; set; }
+    public List<Phone> Phones { get; set; } = [];
 }

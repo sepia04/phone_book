@@ -11,7 +11,7 @@ internal sealed class PhoneRepository(AppDbContext context) : IPhoneRepository
     public Phone? GetById(int phoneId) => 
         context.Phones
             .Include(x => x.User)
-            .FirstOrDefault(x => x.UserId == phoneId);
+            .FirstOrDefault(x => x.Id == phoneId);
 
     public void Create(Phone phone)
     {
