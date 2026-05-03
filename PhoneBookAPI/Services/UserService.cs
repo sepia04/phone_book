@@ -13,9 +13,9 @@ internal sealed class UserService(IRepositoryManager repositoryManager) : IUserS
     {
         var users = repositoryManager.UserRepository.GetAllUsers();
 
-        var usersDto = users.Adapt<Result<IEnumerable<UserDto>>>();
+        var usersDto = users.Adapt<IEnumerable<UserDto>>();
         
-        return usersDto;
+        return Result.Success(usersDto);
     }
 
     public Result<UserDto> GetUser(int userId)
