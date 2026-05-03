@@ -1,0 +1,1 @@
+export {UpdateUserPage} from "./ui/UpdateUserPage";
