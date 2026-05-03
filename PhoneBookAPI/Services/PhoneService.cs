@@ -1,6 +1,8 @@
+using Services.Abstracts;
+
 namespace Services;
 
-public class PhoneService
+internal sealed class PhoneService : IPhoneService
 {
     
 }

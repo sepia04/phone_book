@@ -1,3 +1,3 @@
 namespace Contracts.Phone.Requests;
 
-public record CreatePhoneDto();
+public record CreatePhoneDto(string PhoneNumber, int UserId);
